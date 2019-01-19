@@ -2,6 +2,6 @@
 
 A django project for getting feedback from doctors
 
-System Requirements
+# System Requirements
 
-Django==2.1
+- Django==2.1
