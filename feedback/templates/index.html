@@ -1,18 +1,18 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 <title>Index</title>
-<center>
-	<h2>Objectives:</h2>
-	<ul class="list-group">
-		<li class="list-group-item list-group-item-action">
-			To understand the incidence of tinnitus and present tinnitus
-			management approach
-		</li>
-		<li class="list-group-item list-group-item-action">
-			To understand the acceptance of our tinnitus matching device
-			and e - solution 
-		</li>
-	</ul>
-</center>
+<br>
+<div class="row">
+	<div class="col-sm-4" style="padding-left: 100px">
+	<img src="{% static 'images/iitbblack.jpg' %}" alt="logo" style="width:200px;height:200px;">
+	</div>
+	<div class="col-sm-4">
+	<img src="{% static 'images/main.jpeg' %}" alt="logo" style="width:300px;height:300px;">
+	</div>
+	<div class="col-sm-4">
+	<img src="{% static 'images/iitb-dj.png' %}" alt="logo" style="width:300px;height:200px;">
+	</div>
+</div>
 {% endblock %}
