@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<title> Questions </title>
+<table class="table">
+    <tr>
+        <td>Question</td>
+        <td>Type</td>
+        <td>Section</td>
+        <td>Answer</td>
+    </tr>
+    {% for answer in answers %}
+        <tr>
+            <td>
+                {{ answer.question.description|safe }}
+            </td>
+            <td>
+                {{ answer.question.type }}
+            </td>
+            <td>
+                {{ answer.question.get_section }}
+            </td>
+            <td>
+                {{ answer.answer }}
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% load static %}
+
+<script type="text/javascript" src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/tinymce.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+<div class="d-flex flex-row justify-content-center align-items-center" style="height: 500px;">
+<center>
+	<h2>Thank you for submitting the feedback</h2>
+	<a href="{% url 'feedback:index' %}" class="btn btn-success">Home</a>
+</center>
+</div>

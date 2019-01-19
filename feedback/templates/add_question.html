@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<title> Add question </title>
+<script>
+    $(function() {
+    tinymce.init({ 
+        selector: 'textarea',
+        max_height: 200,
+        width: 1000,
+        height: 200
+        });
+    });
+</script>
+
+<html>
+<center><h2>Add or Edit Question</h2></center>
+
+    {% if not question_id  %}
+        <form action="{% url 'feedback:add_question' %}" method="POST" novalidate>
+    {% else %}
+        <form action="{% url 'feedback:edit_question' question_id %}" method="POST" novalidate>
+    {% endif %}
+        {% csrf_token %}
+        <table class="table">
+            {{ question_form }}
+        </table>
+        {{ formset.management_form }}
+        <br>
+        {% if question is not None and question.type == "Choices" %}
+            <b><u>Options</u></b>
+            <input type="submit" id="add" name="add" value="Add" class="btn btn-info">
+            <hr>
+            {% for form in formset %}
+            <div>
+                {{ form }}
+            </div>
+            <hr>
+            {% endfor %}
+        {% endif %}
+        <center>
+            <input type="submit" id="save" name="save" value="Save" class="btn btn-success">
+        </center>
+        </form>
+</html>
+{% endblock %}

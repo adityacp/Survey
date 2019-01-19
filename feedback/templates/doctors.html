@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<title> Doctors </title>
+<table class="table">
+    <tr>
+        <td>Doctor name</td>
+        <td>Status</td>
+        <td>Feedback</td>
+    </tr>
+    {% for profile in profiles %}
+        <tr>
+            <td>
+                <a href="{% url 'feedback:edit_doctor_profile' profile.id %}">
+                    {{ profile.name.title }}
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'feedback:start_feedback' profile.id %}">
+                    Start survey
+                </a>
+            </td>
+            <td>
+                <a href="{% url 'feedback:view_feedback' profile.id %}">
+                    View Feedback
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

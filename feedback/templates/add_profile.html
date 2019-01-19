@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<title>Add doctor</title>
+<script>
+    $(function() {
+    tinymce.init({ 
+        selector: 'textarea',
+        max_height: 200,
+        width: 1000,
+        height: 200
+        });
+    });
+</script>
+<html>
+<center><h2>Add or Edit Profile</h2></center>
+
+    {% if not profile_id  %}
+        <form action="{% url 'feedback:add_doctor_profile' %}" method="POST">
+    {% else %}
+        <form action="{% url 'feedback:edit_doctor_profile' profile_id %}" method="POST">
+    {% endif %}
+        {% csrf_token %}
+        <table class="table">
+            {{ profile_form }}
+        </table>
+        <center>
+            <input type="submit" id="save" name="save" value="Save" class="btn btn-success">
+            {% if profile_id %}
+            <a class="btn btn-info" href="{% url 'feedback:start_feedback' profile_id %}">
+                Start feedback
+            </a>
+            {% endif %}
+        </center>
+        </form>
+</html>
+{% endblock %}
