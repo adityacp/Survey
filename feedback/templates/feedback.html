@@ -8,18 +8,19 @@
 <center>{% block pagetitle %} <h2>Feedback</h2> {% endblock %}</center>
 <script>
     $(function() {
-    tinymce.init({ 
-        selector: 'textarea',
-        setup: function (editor) {
-            editor.on('change', function () {
-                editor.save();
+        tinymce.init({ 
+            selector: 'textarea',
+            setup: function (editor) {
+                editor.on('change', function () {
+                    editor.save();
+                });
+            },
+            max_height: 200,
+            width: 500,
+            height: 200
             });
-        },
-        max_height: 200,
-        width: 1000,
-        height: 200
         });
-    });
+
 </script>
 
 <html>
@@ -41,14 +42,14 @@
                 {% for option in question.option_set.all %}
                     <table class="table">
                         <tr>
-                            <input type="radio" name="option_{{question.id}}" value="{{option.name}}" required="">
+                            <input type="radio" class="options" name="option_{{question.id}}" value="{{option.name}}" required="">
                                 {{option.name}}
                             </input>
                         </tr>
                     </table>
                 {% endfor %}
             {% elif question.type == "Rating" %}
-                Rating(1 to 5): <input type="number" required="" name="rate_{{question.id}}" min="1" max="5">
+                Sequence(1 to 5): <input type="number" required="" name="rate_{{question.id}}" min="1" max="5">
             {% else %}
                 <textarea name="subjective_{{question.id}}" required="" id="subjective"></textarea>
             {% endif %}

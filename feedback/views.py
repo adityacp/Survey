@@ -7,6 +7,10 @@ from feedback.models import Question, Option, Profile, section, Answer
 from feedback.forms import QuestionForm, ProfileForm
 
 
+def _get_section_name(section_id):
+    return section[section_id-1][1]
+
+
 def index(request):
     return render(request, 'index.html')
 
@@ -34,7 +38,12 @@ def add_or_edit_doctor_profile(request, profile_id=None):
 
 
 def start_feedback(request, profile_id=None):
-    questions = Question.objects.filter(section=1).order_by("id")
+    questions = Question.objects.all()
+    answers_count = Answer.objects.filter(user_id=profile_id).count()
+    if answers_count >= questions.count():
+        msg = "You have already submitted the feedback"
+        return render(request, 'feedback_done.html', {"message": msg})
+    questions = questions.filter(section=1).order_by("id")
     return render(request, 'feedback.html',
                   {"questions": questions, "profile_id": profile_id,
                    "section_id": 1,
@@ -48,7 +57,7 @@ def next_section(request, section_id, profile_id):
     """
     user = Profile.objects.get(id=profile_id)
     question_list = request.POST.getlist("question_id")
-    current_ques = Question.objects.filter(id__in=question_list)
+    current_ques = Question.objects.filter(id__in=question_list).order_by("id")
     for question in current_ques:
         if question.type == "Subjective":
             answer = request.POST.get("subjective_{0}".format(question.id))
@@ -61,9 +70,10 @@ def next_section(request, section_id, profile_id):
         )
     section_id = section_id + 1
     if section_id > 3:
-        return render(request, 'feedback_done.html')
+        msg = "Thank you for submitting the feedback"
+        return render(request, 'feedback_done.html', {"message": msg})
     new_questions = Question.objects.filter(section=section_id).order_by("id")
-    section_name = section[section_id-1][1]
+    section_name = _get_section_name(section_id)
     return render(request, 'feedback.html',
                   {"questions": new_questions, "profile_id": profile_id,
                    "section_id": section_id,
